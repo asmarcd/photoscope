@@ -8,8 +8,8 @@ module api
             end
 
             # Not sure at the moment if this should be by tag or by id. You'll be able to pull all photos by tag, so that's what I'll need to search by
-            def show
-                image = Image.find_by(tag: params[:tag])
+            def show_by_tag
+                image = Image.where(tag: params[:tag])
             end
 
             def create
