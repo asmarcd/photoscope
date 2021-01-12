@@ -1,6 +1,7 @@
-module api
-    module v1
+module Api
+    module V1
         class ImagesController < ApplicationController
+            protect_from_forgery with: :null_session
             def index
                 images = Image.all
 
@@ -8,7 +9,9 @@ module api
             end
 
             def show
-                image = Image.where(tag: params[:tag])
+                image = Image.find_by(tag: params[:tag])
+
+                render json: ImageSerializer.new(image).serialized_json
             end
 
             def create
@@ -34,7 +37,7 @@ module api
             def destroy
                 image = Image.find_by(id: params[:id])
 
-                if image.destroy(image_params)
+                if image.destroy
                     head :no_content             
                 else
                     render json: {error: image.errors.messages}, status: 422
