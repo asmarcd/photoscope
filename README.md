@@ -1,5 +1,4 @@
 
-<!-- TODO: Create seed data -->
 <!-- TODO: Build out API -->
 <!-- TODO: Build create route -->
 <!-- TODO: Build delete route -->
