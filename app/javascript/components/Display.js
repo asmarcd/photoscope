@@ -8,7 +8,7 @@ const Display = () => {
     useEffect(() => {
         axios.get('api/v1/images.json')
         .then(res => {setImages(res.data.data)})
-    })
+    }, [])
 
     return (
         <div>Display goes here</div>
