@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import UploadBtn from './components/UploadBtn';
-import Gallery from './components/Gallery';
 import Footer from './components/Footer';
 
-import { CloudinaryContext } from 'cloudinary-react';
+import { CloudinaryContext, Image } from 'cloudinary-react';
 import { fetchPhotos, openUploadWidget } from "./util/CloudinaryService";
 
 function App() {
 
   const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    fetchPhotos("image", setImages)
+  }, []);
 
   const beginUpload = tag => {
     const uploadOptions = {
@@ -36,9 +38,14 @@ function App() {
     <CloudinaryContext cloudName='asmarphotocloud'>
       <div className="App">
         <Header />
-        <button onClick={() => beginUpload()}>Upload Image</button>
+        <button onClick={() => beginUpload("image")}>Upload Image</button>
         <section>
-          {images.map(i => <img src={i} alt="" />)}
+          {images.map(i => <Image
+            key={i}
+            publicId={i}
+            fetch-format="auto"
+            quality="auto"
+          />)}
         </section>
         <Footer />
       </div>
